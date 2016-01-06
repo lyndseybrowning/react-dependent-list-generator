@@ -1,0 +1,11 @@
+{
+  "name": "questionset-generator",
+  "version": "1.0.0",
+  "description": "Question set generator and view",
+  "author": "Lyndsey Browning",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.1.1"
+  }
+}
