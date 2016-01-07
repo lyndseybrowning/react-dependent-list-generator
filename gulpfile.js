@@ -8,6 +8,7 @@ var sass = require('gulp-sass');
 var rename = require('gulp-rename');
 var cssminify = require('gulp-cssnano');
 var autoprefixer = require('gulp-autoprefixer');
+<<<<<<< HEAD
 var uglify = require('gulp-uglify');
 var browserSync = require('browser-sync');
 var browserify = require('browserify');
@@ -15,6 +16,9 @@ var watchify = require('watchify');
 var babelify = require('babelify');
 var buffers = require('vinyl-buffer');
 var source = require('vinyl-source-stream');
+=======
+var browserSync = require('browser-sync');
+>>>>>>> 927880ce0b64fd08cd4e20b9e0823f65901268a1
 
 gulp.task('browser-sync', function() {
   browserSync.init({
