@@ -4,6 +4,7 @@ var paths = {
 };
 
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var sass = require('gulp-sass');
 var rename = require('gulp-rename');
 var cssminify = require('gulp-cssnano');
@@ -45,31 +46,47 @@ gulp.task('sass', function() {
     .pipe(browserSync.stream())
 });
 
-function getBundle(debug) {
-  return watchify(browserify({
-    entries: [ './js/main.js' ],
-    debug: debug || true,
-    cache: {},
-    packageCache: {}
-  }));
-}
-
-gulp.task('browserify', function() {
-  return getBundle()
-    .transform(babelify)
-    .bundle()
-    .on('error', function(err) { console.error(err); })
-    .pipe(source('main.js'))
-    .pipe(gulp.dest(paths.build))
-    .pipe(buffers())
-    .pipe(uglify())
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest(paths.build))
-    .pipe(browserSync.stream())
+gulp.task('browserify', function(){
+  build(false);
 });
 
-gulp.task('default', ['browser-sync'], function() {
+function build(watch) {
+  var opts = {
+    entries: [ './js/main.js' ],
+    debug : true,
+    cache: {},
+    packageCache: {}
+  };
+
+  var bundler = watch ? watchify(browserify(opts)) : browserify(opts);
+
+  function bundle() {
+    bundler.transform(babelify);
+
+    return bundler.bundle()
+      .on('error', function(err) {
+        console.log('Bundle Error: ' + err);
+      })
+      .pipe(source('main.js'))
+      //.pipe(gulp.dest(paths.build))
+      //.pipe(buffers())
+      //.pipe(uglify())
+      //.pipe(rename({ suffix: '.min' }))
+      .pipe(gulp.dest(paths.build))
+      .pipe(browserSync.stream())
+  }
+
+  bundler.on('update', function() {
+    bundle();
+    gutil.log('Bundling...');
+  });
+
+  return bundle();
+}
+
+gulp.task('default', ['browserify', 'browser-sync'], function() {
   gulp.watch(paths.scss + 'style.scss', ['sass']);
   gulp.watch('*.html', ['bs-reload']);
-  gulp.watch('js/*.js', ['browserify']);
+
+  return build(true);
 });

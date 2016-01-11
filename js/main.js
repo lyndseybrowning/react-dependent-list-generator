@@ -1,10 +1,36 @@
-import helpers from './helpers';
+import React from 'react';
+import ReactDom from 'react-dom';
 
-console.log(helpers.multiply(1,2));
-console.log(helpers.showX());
+// components
+import Category from './category';
+import SubCategory from './sub-category';
+import Cause from './cause';
 
-const myName = 'Lyndsey';
+var App = React.createClass({
 
-console.log(myName);
-console.log(helpers.doY());
-console.log(helpers.doZ());
+  getInitialState() {
+    return {
+      categories: {
+        1: 'Hello World',
+        2: 'Hello Lyndsey',
+        3: 'My name is Lyndsey'
+      }
+    }
+  },
+
+  render() {
+
+    var categories = this.state.categories;
+
+    return (
+      <div className='container'>
+        <Category categories={categories} />
+        <SubCategory />
+        <Cause />
+      </div>
+    )
+  }
+
+});
+
+ReactDom.render(<App name='Lyndsey Browning' />, document.querySelector('#app'));
