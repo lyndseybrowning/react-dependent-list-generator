@@ -10,12 +10,15 @@ var App = React.createClass({
 
   getInitialState() {
     return {
-      categories: {
-        1: 'Hello World',
-        2: 'Hello Lyndsey',
-        3: 'My name is Lyndsey'
-      }
+      categories: []
     }
+  },
+
+  addCategory(category) {
+    this.state.categories.push(category);
+    this.setState({
+      categories: this.state.categories
+    });
   },
 
   render() {
@@ -24,7 +27,7 @@ var App = React.createClass({
 
     return (
       <div className='container'>
-        <Category categories={categories} />
+        <Category categories={categories} addCategory={this.addCategory} />
         <SubCategory />
         <Cause />
       </div>
@@ -33,4 +36,4 @@ var App = React.createClass({
 
 });
 
-ReactDom.render(<App name='Lyndsey Browning' />, document.querySelector('#app'));
+ReactDom.render(<App />, document.querySelector('#app'));
