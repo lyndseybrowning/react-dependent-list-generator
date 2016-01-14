@@ -1,23 +1,28 @@
 import React from 'react';
-import AddCategoryForm from './categoryAddForm'
+import AddCategoryForm from './categoryAddForm';
+import helpers from './helpers';
 
 export default React.createClass({
 
-  renderCategories(key, value) {
+  renderCategories(value, key) {
     return (
-        <li key={key}> {this.props.categories[key]} </li>
+        <li key={key} className='list__item'>
+          <span>{value}</span>          
+        </li>
     )
   },
 
   render() {
     var categories = this.props.categories;
 
+    categories.sort(helpers.sortAlpha);
+
     return (
       <div className='grid-4'>
         <AddCategoryForm  {...this.props} />
 
         <ul className='list'>
-          { Object.keys(categories).map(this.renderCategories) }
+          { categories.map(this.renderCategories) }
         </ul>
       </div>
     )

@@ -1,38 +1,29 @@
-$grid-max-size: 1000px;
-$grid-cols: 12;
-$grid-col-size: (100 / $grid-cols);
-$grid-pad: 0.5em;
+@import "defaults";
+@import "base/normalise";
+@import "base/reset";
+@import "base/clearfix";
+@import "base/grid";
+@import "helpers";
 
-* {
-  box-sizing: border-box;
-}
+.list {
+  list-style: none;
 
-html, body {
-  font-family: 'Open Sans';
-}
+  &__item {
+      position: relative;
+      padding: ($def-spacing/2);
+      margin: ($def-spacing/2) 0;
+      border: 1px $primary-color-outline solid;
+      background-color: $primary-color;
 
-.container {
-  max-width: $grid-max-size;
-  margin: auto;
+      &:hover {
+        cursor: pointer;
+        border-color: #aaa;
+      }
 
-  [class*="grid-"] {
-    float: left;
-    border: 1px #eee solid;
-    padding: $grid-pad;
-  }
-
-  .grid__content {
-  }
-
-  @for $i from 1 through 12 {
-    .grid-#{$i} {
-      width: 0% + ($grid-col-size * $i);
-    }
-  }
-
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
+      &--del {
+        position: absolute;
+        right: 0;
+        padding-right: 0.5em;
+      }
   }
 }

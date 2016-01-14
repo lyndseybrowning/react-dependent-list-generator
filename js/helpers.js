@@ -1,21 +1,16 @@
-let multiplyObj = {
+let helpers = {
 
-  multiply(x,y) {
-    return x * y;
-  },
+  sortAlpha(a, b) {
+    if(a < b) {
+      return -1;
+    }
 
-  showX() {
-    return "Lyndsey";
-  },
-
-  doY() {
-    return "you are...";
-  },
-
-  doZ() {
-    return "my name is " + this.showX();
+    if(a > b) {
+      return 1;
+    }
+    return 0;
   }
 
 };
 
-export default multiplyObj;
+export default helpers;

@@ -3,20 +3,21 @@ var paths = {
   scss: 'css/scss/'
 };
 
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var sass = require('gulp-sass');
-var rename = require('gulp-rename');
-var cssminify = require('gulp-cssnano');
-var autoprefixer = require('gulp-autoprefixer');
-var uglify = require('gulp-uglify');
-var browserSync = require('browser-sync');
-var browserify = require('browserify');
-var watchify = require('watchify');
-var babelify = require('babelify');
-var buffers = require('vinyl-buffer');
-var source = require('vinyl-source-stream');
-var browserSync = require('browser-sync');
+var gulp = require('gulp'),
+    gutil = require('gulp-util'),
+    sass = require('gulp-sass'),
+    rename = require('gulp-rename'),
+    cssminify = require('gulp-cssnano'),
+    autoprefixer = require('gulp-autoprefixer'),
+    uglify = require('gulp-uglify'),
+    sourcemaps = require('gulp-sourcemaps'),
+    browserSync = require('browser-sync'),
+    browserify = require('browserify'),
+    watchify = require('watchify'),
+    babelify = require('babelify'),
+    buffers = require('vinyl-buffer'),
+    source = require('vinyl-source-stream'),
+    filter = require('gulp-filter');
 
 gulp.task('browser-sync', function() {
   browserSync.init({
@@ -32,17 +33,19 @@ gulp.task('bs-reload', function() {
 
 gulp.task('sass', function() {
   return gulp.src(paths.scss + 'style.scss')
-    .pipe(sass({
-      outputStyle: 'expanded'
+    .pipe(sourcemaps.init({
+      loadMaps: true
     }))
+    .pipe(sass())
     .pipe(autoprefixer({
       browsers: ['last 4 versions'],
       cascade: false
-    }))
-    .pipe(gulp.dest('css'))
+    }))    
     .pipe(cssminify())
     .pipe(rename({ suffix: '.min' }))
+    .pipe(sourcemaps.write('../build/maps'))
     .pipe(gulp.dest(paths.build))
+    .pipe(filter('**/*.css'))
     .pipe(browserSync.stream())
 });
 
@@ -85,7 +88,7 @@ function build(watch) {
 }
 
 gulp.task('default', ['browserify', 'browser-sync'], function() {
-  gulp.watch(paths.scss + 'style.scss', ['sass']);
+  gulp.watch(paths.scss + '**/*.scss', ['sass']);
   gulp.watch('*.html', ['bs-reload']);
 
   return build(true);
