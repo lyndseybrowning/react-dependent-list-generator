@@ -40,10 +40,10 @@ gulp.task('sass', function() {
     .pipe(autoprefixer({
       browsers: ['last 4 versions'],
       cascade: false
-    }))    
+    }))
     .pipe(cssminify())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(sourcemaps.write('../build/maps'))
+    .pipe(sourcemaps.write('../css/maps'))
     .pipe(gulp.dest(paths.build))
     .pipe(filter('**/*.css'))
     .pipe(browserSync.stream())
