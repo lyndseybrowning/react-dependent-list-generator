@@ -3,9 +3,10 @@ import React from 'react';
 export default React.createClass({
   render() {
     return (
-      <div className='grid-4'>
-        Select a Sub-Category
-      </div>
+      <section className='grid-4'>
+        <h1> Cause </h1>
+        <span> Select a Sub-Category </span>
+      </section>
     )
   }
 });

@@ -15,13 +15,15 @@ export default React.createClass({
     categories.sort(helpers.sortAlpha);
 
     return (
-      <div className='grid-4'>
+      <section className='grid-4'>
+        <h1> Category </h1>
+
         <AddCategoryForm  {...this.props} />
 
         <ul className='list'>
           { categories.map(this.renderCategories) }
         </ul>
-      </div>
+      </section>
     )
   }
 });
