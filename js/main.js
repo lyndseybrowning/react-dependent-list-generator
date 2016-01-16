@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 // components
-import Category from './category';
-import SubCategory from './sub-category';
-import Cause from './cause';
+import Category from './category/category';
+import SubCategory from './sub-category/sub-category';
+import Cause from './cause/cause';
 
-var App = React.createClass({
+const App = React.createClass({
 
   getInitialState() {
     return {

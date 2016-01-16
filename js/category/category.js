@@ -1,15 +1,12 @@
 import React from 'react';
-import AddCategoryForm from './categoryAddForm';
-import helpers from './helpers';
+import AddCategoryForm from './category-add-form';
+import CategoryItem from './category-item';
+import helpers from '../helpers';
 
 export default React.createClass({
 
   renderCategories(value, key) {
-    return (
-        <li key={key} className='list__item'>
-          <span>{value}</span>          
-        </li>
-    )
+    return <CategoryItem key={key} value={value} />
   },
 
   render() {
