@@ -1,27 +1,33 @@
 import React from 'react';
 import AddCategoryForm from './category-add-form';
-import CategoryItem from './category-item';
 import helpers from '../helpers';
 
 export default React.createClass({
 
-  renderCategories(value, key) {
-    return <CategoryItem key={key} value={value} />
+  handleClick() {
+
+  },
+
+  renderCategories(obj) {
+    return (
+      <li key={obj.id} className='list__item' onClick={this.handleClick.bind(this, obj)}>
+        <span>{obj.category}</span>
+      </li>
+    )
   },
 
   render() {
-    var categories = this.props.categories;
+    let categories = this.props.categories;
 
-    categories.sort(helpers.sortAlpha);
+    categories.sort(helpers.sortAlphaObj.bind(this, 'category'));
 
     return (
       <section className='grid-4'>
         <h1> Category </h1>
-
         <AddCategoryForm  {...this.props} />
 
         <ul className='list'>
-          { categories.map(this.renderCategories) }
+          {categories.map(this.renderCategories)}
         </ul>
       </section>
     )

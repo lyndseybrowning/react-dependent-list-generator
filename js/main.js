@@ -15,9 +15,11 @@ const App = React.createClass({
   },
 
   addCategory(category) {
-    this.state.categories.push(category);
+    let categories = this.state.categories.slice();
+    categories.push(category);
+
     this.setState({
-      categories: this.state.categories
+      categories: categories
     });
   },
 
