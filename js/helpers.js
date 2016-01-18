@@ -1,3 +1,16 @@
+///
+///
+/// List of helper functions for common tasks
+/// ------------------
+/// sortAlpha(a, b); Array.Sort() - Sort items Alphabetically
+/// sortAlphaObj(a, b); Array.Sort() - Sort object items Alphabetically by passed in object property
+/// ------------------
+/// setLocalStore(key, value); - Sets local storage item. Note: if value is null or undefined, the key is removed from storage
+/// getLocalStore(key); - Retrieves local storage item by key
+/// -------------------
+/// removeClass(elem, className); - Runs a forEach loop on the passed in element(s) and removes the passed in className from each
+///
+///
 let helpers = {
 
   sortAlpha(a, b) {
