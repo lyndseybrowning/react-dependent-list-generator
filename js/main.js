@@ -6,11 +6,17 @@ import Category from './category/category';
 import SubCategory from './sub-category/sub-category';
 import Cause from './cause/cause';
 
+// helpers
+import helpers from './helpers';
+
 const App = React.createClass({
 
   getInitialState() {
+    let categories = JSON.parse(helpers.getLocalStore('categories')) || [];
+
     return {
-      categories: []
+      categories: categories,
+      selectedCategory: null
     }
   },
 
@@ -21,6 +27,12 @@ const App = React.createClass({
     this.setState({
       categories: categories
     });
+
+    helpers.setLocalStore('categories', JSON.stringify(categories));
+  },
+
+  selectCategory(id) {
+    console.log(id);
   },
 
   render() {
@@ -29,7 +41,7 @@ const App = React.createClass({
 
     return (
       <div className='container'>
-        <Category categories={categories} addCategory={this.addCategory} />
+        <Category categories={categories} addCategory={this.addCategory} selectCategory={this.selectCategory}  />
         <SubCategory />
         <Cause />
       </div>

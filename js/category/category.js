@@ -4,13 +4,21 @@ import helpers from '../helpers';
 
 export default React.createClass({
 
-  handleClick() {
+  handleClick(id) {
+    let item = this.refs[id],
+        parentList = item.parentNode,
+        parentListItems = parentList.querySelectorAll('.list__item');
 
+    // remove any selected class
+    helpers.removeClass(parentListItems, 'list__item--selected');
+    // add selected class to this item
+    item.classList.add('list__item--selected');
+    this.props.selectCategory(id);
   },
 
   renderCategories(obj) {
     return (
-      <li key={obj.id} className='list__item' onClick={this.handleClick.bind(this, obj)}>
+      <li key={obj.id} className='list__item' ref={obj.id} onClick={this.handleClick.bind(this, obj.id)}>
         <span>{obj.category}</span>
       </li>
     )
@@ -26,7 +34,7 @@ export default React.createClass({
         <h1> Category </h1>
         <AddCategoryForm  {...this.props} />
 
-        <ul className='list'>
+        <ul className='list list--categories'>
           {categories.map(this.renderCategories)}
         </ul>
       </section>

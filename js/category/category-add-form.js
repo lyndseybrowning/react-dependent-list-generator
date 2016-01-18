@@ -6,9 +6,17 @@ export default React.createClass({
   addCategory(e) {
     e.preventDefault();
 
+    let categoryName = this.refs.categoryName;
+
+    if(categoryName.value === '') {
+       categoryName.classList.add('error');
+       return;
+    }
+    categoryName.classList.remove('error');
+
     let newCategory = {
       id: Uid.raw(),
-      category: this.refs.categoryName.value
+      category: categoryName.value
     };
 
     this.props.addCategory(newCategory);
