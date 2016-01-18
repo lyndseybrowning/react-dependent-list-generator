@@ -25,5 +25,10 @@
         right: 0;
         padding-right: 0.5em;
       }
+
+      &--selected {
+        border: 1px #aaa solid;
+        font-weight: 700;
+      }
   }
 }
