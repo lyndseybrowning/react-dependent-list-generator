@@ -24,6 +24,29 @@ let helpers = {
       return 1;
     }
     return 0;
+  },
+
+  setLocalStore(key, value) {
+    if(key != null) {
+      if(value == null) {
+        localStorage.removeItem(key);
+      } else {
+        localStorage.setItem(key, value);
+      }
+    }
+  },
+
+  getLocalStore(key) {
+    if(key == null) {
+      return null;
+    }
+    return localStorage.getItem(key);
+  },
+
+  removeClass(elem, className) {
+    [].forEach.call(elem, function(el) {
+      el.classList.remove(className);
+    });
   }
 
 };
