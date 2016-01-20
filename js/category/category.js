@@ -2,6 +2,8 @@ import React from 'react';
 import AddCategoryForm from './category-add-form';
 import helpers from '../helpers';
 
+const componentTitle = 'Category';
+
 export default React.createClass({
 
   handleClick(obj) {
@@ -31,7 +33,8 @@ export default React.createClass({
 
     return (
       <section className='grid-4'>
-        <h1> Category </h1>
+        <h1> {componentTitle} </h1>
+
         <AddCategoryForm  {...this.props} />
 
         <ul className='list list--categories'>

@@ -2,6 +2,8 @@ import React from 'react';
 import SelectedCategory from './selected-category';
 import AddSubCategoryForm from './sub-category-add-form';
 
+const componentTitle = 'Sub-Category';
+
 export default React.createClass({
 
   noCategorySelectedHtml() {
@@ -33,7 +35,7 @@ export default React.createClass({
 
     return (
       <section className='grid-4'>
-         <h1> Sub-Category </h1>
+         <h1> {componentTitle} </h1>
 
          { (hasSelectedCategory)
            ? <div>
