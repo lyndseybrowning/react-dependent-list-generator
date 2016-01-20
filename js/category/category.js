@@ -16,7 +16,7 @@ export default React.createClass({
     // add selected class to this item
     item.classList.add('list__item--selected');
     this.props.selectCategory(obj);
-    this.props.resetCause();
+    this.props.resetSub();
   },
 
   renderCategories(obj) {

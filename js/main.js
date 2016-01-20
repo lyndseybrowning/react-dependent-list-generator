@@ -4,7 +4,7 @@ import ReactDom from 'react-dom';
 // components
 import Category from './category/category';
 import SubCategory from './sub-category/sub-category';
-import Cause from './cause/cause';
+import SubSubCategory from './sub-sub-category/sub-sub-category';
 
 // helpers
 import helpers from './helpers';
@@ -14,12 +14,12 @@ const App = React.createClass({
   getInitialState() {
     let categories = JSON.parse(helpers.getLocalStore('categories')) || [],
         subCategories = JSON.parse(helpers.getLocalStore('subCategories')) || [],
-        causes = JSON.parse(helpers.getLocalStore('causes')) || [];
+        subSubCategories = JSON.parse(helpers.getLocalStore('subSubCategories')) || [];
 
     return {
       categories: categories,
       subCategories: subCategories,
-      causes: causes,
+      subSubCategories: subSubCategories,
       selectedCategory: null,
       selectedSubCategory: null,
       selectedCause: null
@@ -58,16 +58,16 @@ const App = React.createClass({
     this.setState({ selectedSubCategory: selectedSubCategory });
   },
 
-  addCause(cause) {
-    let causes = this.state.causes.slice();
-    causes.push(cause);
+  addSubSubCategory(subSubCategory) {
+    let subSubCategories = this.state.subSubCategories.slice();
+    subSubCategories.push(subSubCategory);
 
-    this.setState({ causes: causes });
+    this.setState({ subSubCategories: subSubCategories });
 
-    helpers.setLocalStore('causes', JSON.stringify(causes));
+    helpers.setLocalStore('causes', JSON.stringify(subSubCategories));
   },
 
-  resetCause() {
+  resetSub() {
     let selectedSubCategory = null;
 
     this.setState({
@@ -81,7 +81,7 @@ const App = React.createClass({
         selectedCategory = this.state.selectedCategory,
         subCategories = this.state.subCategories,
         selectedSubCategory = this.state.selectedSubCategory,
-        causes = this.state.causes;
+        subSubCategories = this.state.subSubCategories;
 
     return (
       <div className='container'>
@@ -90,7 +90,7 @@ const App = React.createClass({
           categories={categories}
           addCategory={this.addCategory}
           selectCategory={this.selectCategory}
-          resetCause={this.resetCause} />
+          resetSub={this.resetSub} />
 
         <SubCategory
           subCategories={subCategories}
@@ -98,10 +98,10 @@ const App = React.createClass({
           addSubCategory={this.addSubCategory}
           selectSubCategory={this.selectSubCategory} />
 
-        <Cause
-          causes={causes}
+        <SubSubCategory
+          subSubCategories={subSubCategories}
           selectedSubCategory={selectedSubCategory}
-          addCause={this.addCause} />
+          addSubSubCategory={this.addSubSubCategory} />
 
       </div>
     )
