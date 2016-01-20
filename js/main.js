@@ -64,7 +64,7 @@ const App = React.createClass({
 
     this.setState({ subSubCategories: subSubCategories });
 
-    helpers.setLocalStore('causes', JSON.stringify(subSubCategories));
+    helpers.setLocalStore('subSubCategories', JSON.stringify(subSubCategories));
   },
 
   resetSub() {
@@ -84,7 +84,7 @@ const App = React.createClass({
         subSubCategories = this.state.subSubCategories;
 
     return (
-      <div className='container'>
+      <div>
 
         <Category
           categories={categories}

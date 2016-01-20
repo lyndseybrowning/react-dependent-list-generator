@@ -32,7 +32,7 @@ export default React.createClass({
     helpers.removeClass(parentListItems, 'list__item--selected');
     // add selected class to this item
     item.classList.add('list__item--selected');
-    this.props.selectSubCategory(obj);    
+    this.props.selectSubCategory(obj);
   },
 
   render() {
@@ -41,6 +41,10 @@ export default React.createClass({
         hasSelectedCategory = (selectedCategory == null) ? false : true,
         subCategories = this.props.subCategories,
         filteredSubCategories = subCategories.filter((obj) => (hasSelectedCategory) ? obj.categoryId == selectedCategory.id : null);
+
+    if(filteredSubCategories.length) {
+      filteredSubCategories.sort(helpers.sortAlphaObj.bind(this, 'subCategory'));
+    }
 
     return (
       <section className='grid-4'>
