@@ -1,6 +1,7 @@
 import React from 'react';
 import SelectedCategory from './selected-category';
 import AddSubCategoryForm from './sub-category-add-form';
+import helpers from '../helpers';
 
 const componentTitle = 'Sub-Category';
 
@@ -22,8 +23,16 @@ export default React.createClass({
     )
   },
 
-  handleClick() {
+  handleClick(obj) {
+    let item = this.refs[obj.id],
+        parentList = item.parentNode,
+        parentListItems = parentList.querySelectorAll('.list__item');
 
+    // remove any selected class
+    helpers.removeClass(parentListItems, 'list__item--selected');
+    // add selected class to this item
+    item.classList.add('list__item--selected');
+    this.props.selectSubCategory(obj);    
   },
 
   render() {

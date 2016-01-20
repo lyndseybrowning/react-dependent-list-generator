@@ -13,12 +13,16 @@ const App = React.createClass({
 
   getInitialState() {
     let categories = JSON.parse(helpers.getLocalStore('categories')) || [],
-        subCategories = JSON.parse(helpers.getLocalStore('subCategories')) || [];
+        subCategories = JSON.parse(helpers.getLocalStore('subCategories')) || [],
+        causes = JSON.parse(helpers.getLocalStore('causes')) || [];
 
     return {
       categories: categories,
+      subCategories: subCategories,
+      causes: causes,
       selectedCategory: null,
-      subCategories: subCategories
+      selectedSubCategory: null,
+      selectedCause: null
     }
   },
 
@@ -47,17 +51,58 @@ const App = React.createClass({
     helpers.setLocalStore('subCategories', JSON.stringify(subCategories));
   },
 
+  selectSubCategory(obj) {
+    let selectedSubCategory = this.state.selectedSubCategory;
+    selectedSubCategory = obj;
+
+    this.setState({ selectedSubCategory: selectedSubCategory });
+  },
+
+  addCause(cause) {
+    let causes = this.state.causes.slice();
+    causes.push(cause);
+
+    this.setState({ causes: causes });
+
+    helpers.setLocalStore('causes', JSON.stringify(causes));
+  },
+
+  resetCause() {
+    let selectedSubCategory = null;
+
+    this.setState({
+      selectedSubCategory: selectedSubCategory
+    });
+  },
+
   render() {
 
     let categories = this.state.categories,
         selectedCategory = this.state.selectedCategory,
-        subCategories = this.state.subCategories;
+        subCategories = this.state.subCategories,
+        selectedSubCategory = this.state.selectedSubCategory,
+        causes = this.state.causes;
 
     return (
       <div className='container'>
-        <Category categories={categories} addCategory={this.addCategory} selectCategory={this.selectCategory}  />
-        <SubCategory subCategories={subCategories} selectedCategory={selectedCategory} addSubCategory={this.addSubCategory} />
-        <Cause />
+
+        <Category
+          categories={categories}
+          addCategory={this.addCategory}
+          selectCategory={this.selectCategory}
+          resetCause={this.resetCause} />
+
+        <SubCategory
+          subCategories={subCategories}
+          selectedCategory={selectedCategory}
+          addSubCategory={this.addSubCategory}
+          selectSubCategory={this.selectSubCategory} />
+
+        <Cause
+          causes={causes}
+          selectedSubCategory={selectedSubCategory}
+          addCause={this.addCause} />
+
       </div>
     )
   }
