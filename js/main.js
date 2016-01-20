@@ -24,25 +24,27 @@ const App = React.createClass({
     let categories = this.state.categories.slice();
     categories.push(category);
 
-    this.setState({
-      categories: categories
-    });
+    this.setState({ categories: categories });
 
     helpers.setLocalStore('categories', JSON.stringify(categories));
   },
 
-  selectCategory(id) {
-    console.log(id);
+  selectCategory(obj) {
+    let selectedCategory = this.state.selectedCategory;
+    selectedCategory = obj;
+
+    this.setState({ selectedCategory: selectedCategory });
   },
 
   render() {
 
-    var categories = this.state.categories;
+    let categories = this.state.categories,
+        selectedCategory = this.state.selectedCategory;
 
     return (
       <div className='container'>
         <Category categories={categories} addCategory={this.addCategory} selectCategory={this.selectCategory}  />
-        <SubCategory />
+        <SubCategory selectedCategory={selectedCategory} />
         <Cause />
       </div>
     )
