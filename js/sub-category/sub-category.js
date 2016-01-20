@@ -8,10 +8,28 @@ export default React.createClass({
     return <span> Select a Category </span>
   },
 
+  noSubCategories() {
+    return <span> No Sub-Categories added </span>
+  },
+
+  renderSubCategories(obj) {
+    return (
+      <li key={obj.id} className='list__item' ref={obj.id} onClick={this.handleClick.bind(this, obj)}>
+        <span>{obj.subCategory}</span>
+      </li>
+    )
+  },
+
+  handleClick() {
+
+  },
+
   render() {
     let categories = this.props.categories,
         selectedCategory = this.props.selectedCategory,
-        hasSelectedCategory = (selectedCategory == null) ? false : true;
+        hasSelectedCategory = (selectedCategory == null) ? false : true,
+        subCategories = this.props.subCategories,
+        filteredSubCategories = subCategories.filter((obj) => (hasSelectedCategory) ? obj.categoryId == selectedCategory.id : null);
 
     return (
       <section className='grid-4'>
@@ -20,7 +38,16 @@ export default React.createClass({
          { (hasSelectedCategory)
            ? <div>
                 <SelectedCategory selected={selectedCategory} categories={categories} />
-                <AddSubCategoryForm  {...this.props} />
+                <AddSubCategoryForm {...this.props} />
+
+                <ul className='list list--categories'>
+                  {
+                    (filteredSubCategories.length)
+                    ? filteredSubCategories.map(this.renderSubCategories)
+                    : this.noSubCategories()
+                  }
+                </ul>
+
              </div>
            : this.noCategorySelectedHtml()
          }

@@ -3,7 +3,7 @@ import Uid from 'uuid-lib';
 
 export default React.createClass({
 
-  addCategory(e) {
+  addSubCategory(e) {
     e.preventDefault();
 
     let categoryName = this.refs.categoryName;
@@ -15,9 +15,9 @@ export default React.createClass({
     categoryName.classList.remove('error');
 
     let newCategory = {
-
       id: Uid.raw(),
-      category: categoryName.value
+      subCategory: categoryName.value,
+      categoryId: this.props.selectedCategory.id
     };
 
     this.props.addSubCategory(newCategory);
@@ -26,7 +26,7 @@ export default React.createClass({
 
   render() {
     return (
-      <form onSubmit={this.addCategory} ref='frmSubCategory'>
+      <form onSubmit={this.addSubCategory} ref='frmSubCategory'>
         <input type='text' ref='categoryName' />
         <input type='submit' defaultValue='Add' />
       </form>
