@@ -18,11 +18,16 @@ html, body {
 
   [class*="grid-"] {
     float: left;
-    border: 1px #eee solid;
     padding: $grid-pad;
   }
 
   .grid__content {
+    border: 1px $primary-color solid;
+    padding: $grid-pad;
+  }
+
+  .grid__content input[type="text"] {
+      width: 100%;
   }
 
   @for $i from 1 through 12 {
