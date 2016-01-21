@@ -72,9 +72,9 @@ function build(watch) {
       })
       .pipe(source('main.js'))
       //.pipe(gulp.dest(paths.build))
-      //.pipe(buffers())
-      //.pipe(uglify())
-      //.pipe(rename({ suffix: '.min' }))
+      .pipe(buffers())
+      .pipe(uglify())
+      .pipe(rename({ suffix: '.min' }))
       .pipe(gulp.dest(paths.build))
       .pipe(browserSync.stream())
   }
