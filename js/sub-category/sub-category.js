@@ -25,7 +25,7 @@ export default React.createClass({
 
   toggleItem(target) {
     let source = this.refs.toggle;
-    this.props.toggleItem(source, target);
+    helpers.toggleItem(source, target);
   },
 
   handleClick(obj) {
