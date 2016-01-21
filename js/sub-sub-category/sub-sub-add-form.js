@@ -26,9 +26,8 @@ export default React.createClass({
 
   render() {
     return (
-      <form onSubmit={this.addSubSubCategory} ref='frmSub'>
+      <form onSubmit={this.addSubSubCategory} ref='frmSub' data-ref='frmSubSubCategory' data-hidden>
         <input type='text' ref='subSubCategory' />
-        <input type='submit' defaultValue='Add' />
       </form>
     )
   }

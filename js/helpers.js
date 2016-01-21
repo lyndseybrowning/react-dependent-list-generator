@@ -60,6 +60,24 @@ let helpers = {
     [].forEach.call(elem, function(el) {
       el.classList.remove(className);
     });
+  },
+
+  toggleItem(source, elem) {
+
+    if(elem == null) {
+      return;
+    }
+
+    const hidden = 'data-hidden',
+          target = document.querySelector(`[data-ref="${elem}"]`);
+
+    if(target.getAttribute(hidden) != null) {
+      source.innerHTML = '-';
+      target.removeAttribute(hidden);
+    } else {
+      source.innerHTML = '+';
+      target.setAttribute(hidden, '');
+    }
   }
 
 };

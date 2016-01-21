@@ -15,6 +15,11 @@ export default React.createClass({
     return <span> No items added </span>
   },
 
+  toggleItem(target) {
+    let source = this.refs.toggle;
+    this.props.toggleItem(source, target);
+  },
+
   renderCategories(obj) {
     return (
       <li key={obj.id} className='list__item'>
@@ -36,24 +41,36 @@ export default React.createClass({
 
     return (
       <section className='grid-4'>
-        <h1> {componentTitle} </h1>
-
-        { (hasSelectedSubCategory)
-          ? <div>
-               <SelectedSubSub selected={selectedSubCategory} subSubCategories={subSubCategories} />
-               <AddSubSubForm {...this.props} />
-
-               <ul className='list list--categories'>
-                 {
-                   (filteredCategories.length)
-                   ? filteredCategories.map(this.renderCategories)
-                   : this.noItems()
-                 }
-               </ul>
-
+        <div className='grid__content'>
+          <div className='cf'>
+            <div className='grid-10'>
+              <h1> {componentTitle} </h1>
             </div>
-          : this.noCategorySelectedHtml()
-        }
+            { (hasSelectedSubCategory)
+              ? <div className='grid-2'>
+                  <button ref='toggle' onClick={this.toggleItem.bind(this, 'frmSubSubCategory')}> + </button>
+                </div>
+              : null
+            }
+          </div>
+
+          { (hasSelectedSubCategory)
+            ? <div>
+                 <SelectedSubSub selected={selectedSubCategory} subSubCategories={subSubCategories} />
+                 <AddSubSubForm {...this.props} />
+
+                 <ul className='list list--categories'>
+                   {
+                     (filteredCategories.length)
+                     ? filteredCategories.map(this.renderCategories)
+                     : this.noItems()
+                   }
+                 </ul>
+
+              </div>
+            : this.noCategorySelectedHtml()
+          }
+        </div>
       </section>
     )
   }

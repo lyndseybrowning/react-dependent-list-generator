@@ -2,7 +2,7 @@ import React from 'react';
 import AddCategoryForm from './category-add-form';
 import helpers from '../helpers';
 
-const componentTitle = 'Category';
+const componentTitle = 'Categories';
 
 export default React.createClass({
 
@@ -27,6 +27,11 @@ export default React.createClass({
     )
   },
 
+  toggleItem(target) {
+    let source = this.refs.toggle;
+    this.props.toggleItem(source, target);
+  },
+
   render() {
     let categories = this.props.categories;
 
@@ -34,13 +39,22 @@ export default React.createClass({
 
     return (
       <section className='grid-4'>
-        <h1> {componentTitle} </h1>
+        <div className='grid__content'>
+          <div className='cf'>
+            <div className='grid-10'>
+              <h1> {componentTitle} </h1>
+            </div>
+            <div className='grid-2'>
+              <button ref='toggle' onClick={this.toggleItem.bind(this, 'frmCategory')}> + </button>
+            </div>
+          </div>
 
-        <AddCategoryForm  {...this.props} />
+          <AddCategoryForm  {...this.props} />
 
-        <ul className='list list--categories'>
+          <ul className='list list--categories'>
           {categories.map(this.renderCategories)}
-        </ul>
+          </ul>
+        </div>
       </section>
     )
   }

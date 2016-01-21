@@ -23,6 +23,11 @@ export default React.createClass({
     )
   },
 
+  toggleItem(target) {
+    let source = this.refs.toggle;
+    this.props.toggleItem(source, target);
+  },
+
   handleClick(obj) {
     let item = this.refs[obj.id],
         parentList = item.parentNode,
@@ -48,10 +53,21 @@ export default React.createClass({
 
     return (
       <section className='grid-4'>
-         <h1> {componentTitle} </h1>
+        <div className='grid__content'>
+          <div className='cf'>
+            <div className='grid-10'>
+              <h1> {componentTitle} </h1>
+            </div>
+            { (hasSelectedCategory)
+              ? <div className='grid-2'>
+                  <button ref='toggle' onClick={this.toggleItem.bind(this, 'frmSubCategory')}> + </button>
+                </div>
+              : null
+            }
+          </div>
 
-         { (hasSelectedCategory)
-           ? <div>
+          { (hasSelectedCategory) ?
+            <div>
                 <SelectedCategory selected={selectedCategory} categories={categories} />
                 <AddSubCategoryForm {...this.props} />
 
@@ -65,7 +81,8 @@ export default React.createClass({
 
              </div>
            : this.noCategorySelectedHtml()
-         }
+          }
+         </div>
       </section>
     )
   }

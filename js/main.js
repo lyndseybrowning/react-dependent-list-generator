@@ -26,6 +26,10 @@ const App = React.createClass({
     }
   },
 
+  toggleItem(source, target) {
+    helpers.toggleItem(source, target);
+  },
+
   addCategory(category) {
     let categories = this.state.categories.slice();
     categories.push(category);
@@ -90,18 +94,21 @@ const App = React.createClass({
           categories={categories}
           addCategory={this.addCategory}
           selectCategory={this.selectCategory}
-          resetSub={this.resetSub} />
+          resetSub={this.resetSub}
+          toggleItem={this.toggleItem} />
 
         <SubCategory
           subCategories={subCategories}
           selectedCategory={selectedCategory}
           addSubCategory={this.addSubCategory}
-          selectSubCategory={this.selectSubCategory} />
+          selectSubCategory={this.selectSubCategory}
+          toggleItem={this.toggleItem} />
 
         <SubSubCategory
           subSubCategories={subSubCategories}
           selectedSubCategory={selectedSubCategory}
-          addSubSubCategory={this.addSubSubCategory} />
+          addSubSubCategory={this.addSubSubCategory}
+          toggleItem={this.toggleItem} />
 
       </div>
     )
