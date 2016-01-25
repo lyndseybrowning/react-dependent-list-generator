@@ -1,30 +1,32 @@
-var paths = {
+'use strict';
+
+const paths = {
   build: 'build/',
   scss: 'css/scss/'
 };
 
-var gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    sass = require('gulp-sass'),
-    rename = require('gulp-rename'),
-    cssminify = require('gulp-cssnano'),
-    autoprefixer = require('gulp-autoprefixer'),
-    uglify = require('gulp-uglify'),
-    sourcemaps = require('gulp-sourcemaps'),
-    browserSync = require('browser-sync'),
-    browserify = require('browserify'),
-    watchify = require('watchify'),
-    babelify = require('babelify'),
-    buffers = require('vinyl-buffer'),
-    source = require('vinyl-source-stream'),
-    filter = require('gulp-filter');
+let gulp = require('gulp');
+let gutil = require('gulp-util');
+let sass = require('gulp-sass');
+let rename = require('gulp-rename');
+let cssminify = require('gulp-cssnano');
+let autoprefixer = require('gulp-autoprefixer');
+let uglify = require('gulp-uglify');
+let sourcemaps = require('gulp-sourcemaps');
+let browserSync = require('browser-sync');
+let browserify = require('browserify');
+let watchify = require('watchify');
+let babelify = require('babelify');
+let buffers = require('vinyl-buffer');
+let source = require('vinyl-source-stream');
+let filter = require('gulp-filter');
 
 gulp.task('browser-sync', function() {
-  browserSync.init({
+  return browserSync.init({
     server: {
       baseDir: './'
     }
-  })
+  });
 });
 
 gulp.task('bs-reload', function() {
@@ -54,14 +56,15 @@ gulp.task('browserify', function(){
 });
 
 function build(watch) {
-  var opts = {
+
+  let opts = {
     entries: [ './js/main.js' ],
     debug : true,
     cache: {},
-    packageCache: {}
+    packageCache: {},
   };
 
-  var bundler = watch ? watchify(browserify(opts)) : browserify(opts);
+  let bundler = watch ? watchify(browserify(opts)) : browserify(opts);
 
   function bundle() {
     bundler.transform(babelify);
@@ -71,7 +74,6 @@ function build(watch) {
         console.log('Bundle Error: ' + err);
       })
       .pipe(source('main.js'))
-      //.pipe(gulp.dest(paths.build))
       .pipe(buffers())
       .pipe(uglify())
       .pipe(rename({ suffix: '.min' }))
@@ -81,7 +83,7 @@ function build(watch) {
 
   bundler.on('update', function() {
     bundle();
-    gutil.log('Bundling...');
+    gutil.log('Bundling Now...');
   });
 
   return bundle();
