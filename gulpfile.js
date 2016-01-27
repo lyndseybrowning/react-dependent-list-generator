@@ -45,7 +45,7 @@ gulp.task('sass', function() {
     }))
     .pipe(cssminify())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(sourcemaps.write('../css/maps'))
+    .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest(paths.build))
     .pipe(filter('**/*.css'))
     .pipe(browserSync.stream())
