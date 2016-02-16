@@ -17,54 +17,46 @@ const App = React.createClass({
         subSubCategories = JSON.parse(helpers.getLocalStore('subSubCategories')) || [];
 
     return {
-      categories: categories,
-      subCategories: subCategories,
-      subSubCategories: subSubCategories,
+      categories, subCategories, subSubCategories,
       selectedCategory: null,
-      selectedSubCategory: null,
-      selectedCause: null
+      selectedSubCategory: null
     }
   },
 
-  addCategory(category) {
-    let categories = this.state.categories.slice();
-    categories.push(category);
+  add(item, type) {
+    let items = this.state[type].slice();
+    items.push(item);
 
-    this.setState({ categories: categories });
-
-    helpers.setLocalStore('categories', JSON.stringify(categories));
+    switch(type.toLowerCase()) {
+      case 'categories':
+        this.setState({ categories: items });
+        helpers.setLocalStore('categories', JSON.stringify(items));
+        break;
+      case 'subcategories':
+        this.setState({ subCategories: items });
+        helpers.setLocalStore('subCategories', JSON.stringify(items));
+        break;
+      case 'subsubcategories':
+        this.setState({ subSubCategories: items });
+        helpers.setLocalStore('subSubCategories', JSON.stringify(items));
+        break;
+    }
   },
 
-  selectCategory(obj) {
-    let selectedCategory = this.state.selectedCategory;
-    selectedCategory = obj;
+  select(item, type) {
+    let state = this.state;
+    let selectedCategory, selectedSubCategory;
 
-    this.setState({ selectedCategory: selectedCategory });
-  },
-
-  addSubCategory(subCategory) {
-    let subCategories = this.state.subCategories.slice();
-    subCategories.push(subCategory);
-
-    this.setState({ subCategories: subCategories });
-
-    helpers.setLocalStore('subCategories', JSON.stringify(subCategories));
-  },
-
-  selectSubCategory(obj) {
-    let selectedSubCategory = this.state.selectedSubCategory;
-    selectedSubCategory = obj;
-
-    this.setState({ selectedSubCategory: selectedSubCategory });
-  },
-
-  addSubSubCategory(subSubCategory) {
-    let subSubCategories = this.state.subSubCategories.slice();
-    subSubCategories.push(subSubCategory);
-
-    this.setState({ subSubCategories: subSubCategories });
-
-    helpers.setLocalStore('subSubCategories', JSON.stringify(subSubCategories));
+    switch(type) {
+      case 'category':
+        selectedCategory = item;
+        this.setState({ selectedCategory });
+        break;
+      case 'subcategory':
+        selectedSubCategory = item;
+        this.setState({ selectedSubCategory });
+        break;
+    }
   },
 
   resetSub() {
@@ -88,22 +80,22 @@ const App = React.createClass({
 
         <Category
           categories={categories}
-          addCategory={this.addCategory}
-          selectCategory={this.selectCategory}
+          add={this.add}
+          select={this.select}
           resetSub={this.resetSub}
           />
 
         <SubCategory
           subCategories={subCategories}
+          select={this.select}
+          add={this.add}
           selectedCategory={selectedCategory}
-          addSubCategory={this.addSubCategory}
-          selectSubCategory={this.selectSubCategory}
           />
 
         <SubSubCategory
           subSubCategories={subSubCategories}
           selectedSubCategory={selectedSubCategory}
-          addSubSubCategory={this.addSubSubCategory}
+          add={this.add}
           />
 
       </div>

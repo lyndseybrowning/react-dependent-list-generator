@@ -19,7 +19,7 @@ export default React.createClass({
       category: categoryName.value
     };
 
-    this.props.addCategory(newCategory);
+    this.props.add(newCategory, 'categories');
     this.refs.frmCategory.reset();
   },
 

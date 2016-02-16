@@ -20,7 +20,7 @@ export default React.createClass({
       subCategoryId: this.props.selectedSubCategory.id
     };
 
-    this.props.addSubSubCategory(newItem);
+    this.props.add(newItem, 'subSubCategories');
     this.refs.frmSub.reset();
   },
 

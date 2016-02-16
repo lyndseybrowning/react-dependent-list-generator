@@ -15,7 +15,7 @@ export default React.createClass({
     helpers.removeClass(parentListItems, 'list__item--selected');
     // add selected class to this item
     item.classList.add('list__item--selected');
-    this.props.selectCategory(obj);
+    this.props.select(obj, 'category');
     this.props.resetSub();
   },
 
